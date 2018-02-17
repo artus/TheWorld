@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { Http } from '@angular/http';
+import 'rxjs/add/operator/map';
 
 // Observable
 import { Observable } from 'rxjs/Observable';
@@ -15,14 +17,32 @@ import { Country } from './Country';
 export class CountryServiceProvider {
     
   countriesUrl: string = "https://restcountries.eu/rest/v2/all";
-  countries: Array<Country>;
+  countryQueryUrl: string = "https://restcountries.eu/rest/v2/name/";
+    
+  countries: any;
 
-  constructor() {
-      this.countries = new Array<Country>();
+  constructor(public http: Http) {
   }
     
-  get countries() : Array<Country> {
-      return this.countries;
+  allCountries() {
+      this.http.get(this.countriesUrl).map(res => res.json()).subscribe(data => {
+          this.countries = data;
+      },
+      err => {
+          this.countries = new Array<Country>();
+      });
   }
-
+    
+  searchCountries(query) {
+      if (query == "") this.allCountries();
+      else {
+          this.http.get(this.countryQueryUrl + query).map(res => res.json()).subscribe(data => {
+              this.countries = data;
+          }, 
+          err => {
+              this.countries = new Array<Country>();
+          });
+      }
+  }
+    
 }

@@ -17,14 +17,23 @@ import { CountryServiceProvider } from '../../providers/country-service/country-
 })
 export class CountryListPage {
     
+  searchQuery: string = "";
+    
   title: string = "The world";
-  subTitle: string = "In the palm of your hand.";
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public countryServiceProvider : CountryServiceProvider) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CountryListPage');
+  }
+    
+  onInput() {
+      this.countryServiceProvider.searchCountries(this.searchQuery);
+  }
+    
+  onCancel() {
+      this.countryServiceProvider.allCountries();
   }
 
 }
