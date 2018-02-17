@@ -7,16 +7,35 @@
 <ion-header>
 
   <ion-navbar>
+    <button ion-button menuToggle><ion-icon name="menu"></ion-icon></button>
     <ion-title>
-        {{title}}<br>
-        <small>{{subTitle}}</small>
+        {{title}}
     </ion-title>
     
   </ion-navbar>
 
 </ion-header>
 
+<ion-content>
+    <ion-list>
 
-<ion-content padding>
 
+        <ion-item *ngFor="let country of countryServiceProvider.countries">
+            
+            <ion-card>
+               
+                <ion-item>
+                    <ion-thumbnail item-start>
+                        <ion-img src="{{country.flag}}"></ion-img>
+                    </ion-thumbnail>
+                    <div class="country-list-card-content">
+                        <h2>{{country.name}}</h2>
+                        <p>{{country.capital}}</p>
+                    </div>
+                </ion-item>
+                
+            </ion-card>
+
+        </ion-item>
+    </ion-list>
 </ion-content>

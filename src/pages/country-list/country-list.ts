@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
+import { CountryServiceProvider } from '../../providers/country-service/country-service';
+
 /**
  * Generated class for the CountryListPage page.
  *
@@ -18,7 +20,7 @@ export class CountryListPage {
   title: string = "The world";
   subTitle: string = "In the palm of your hand.";
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public countryServiceProvider : CountryServiceProvider) {
   }
 
   ionViewDidLoad() {
