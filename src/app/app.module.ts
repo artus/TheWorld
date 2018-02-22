@@ -4,16 +4,19 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
-import { HttpModule } from '@angular/http';
 
 import { MyApp } from './app.component';
+
 import { CountryListPage } from '../pages/country-list/country-list';
+import { CountryDetailPage } from '../pages/country-detail/country-detail';
+
 import { CountryServiceProvider } from '../providers/country-service/country-service';
 
 @NgModule({
   declarations: [
     MyApp,
-    CountryListPage
+    CountryListPage,
+    CountryDetailPage
   ],
   imports: [
     BrowserModule,
@@ -23,7 +26,8 @@ import { CountryServiceProvider } from '../providers/country-service/country-ser
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    CountryListPage
+    CountryListPage,
+    CountryDetailPage
   ],
   providers: [
     StatusBar,

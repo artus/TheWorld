@@ -25,11 +25,10 @@
     (ionCancel)="onCancel($event)">
     </ion-searchbar>
     
-    <ion-list>
-        <ion-card *ngFor="let country of countryServiceProvider.countries">
+    <ion-list *ngIf="countryServiceProvider.countries.length != 0">
+        <ion-card *ngFor="let country of countries" (click)="seeDetail(country)">
                 <ion-item>
-                    <ion-thumbnail item-start>
-                        <ion-img src="{{country.flag}}"></ion-img>
+                    <ion-thumbnail class="country-flag" [style.background-image]="'url(' + country.flag + ')'"  item-start>
                     </ion-thumbnail>
                     <div class="country-list-card-content">
                         <h2>{{country.name}}</h2>
@@ -38,4 +37,12 @@
                 </ion-item>
             </ion-card>
     </ion-list>
+    
+    <ion-list *ngIf="countryServiceProvider.countries.length == 0">
+        <ion-card>
+            <ion-card-header>No results.</ion-card-header>
+            <ion-card-content>Are you connected to the internet?</ion-card-content>
+        </ion-card>
+    </ion-list>
+    
 </ion-content>

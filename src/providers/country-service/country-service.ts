@@ -5,7 +5,7 @@ import 'rxjs/add/operator/map';
 // Observable
 import { Observable } from 'rxjs/Observable';
 
-import { Country } from './Country';
+import { CountryCache } from './CountryCache';
 
 /*
   Generated class for the CountryServiceProvider provider.
@@ -19,30 +19,52 @@ export class CountryServiceProvider {
   countriesUrl: string = "https://restcountries.eu/rest/v2/all";
   countryQueryUrl: string = "https://restcountries.eu/rest/v2/name/";
     
-  countries: any;
+  countries: any = new Array();
 
   constructor(public http: Http) {
+      this.countries = this.loadCountries();
   }
     
-  allCountries() {
-      this.http.get(this.countriesUrl).map(res => res.json()).subscribe(data => {
-          this.countries = data;
-      },
-      err => {
-          this.countries = new Array<Country>();
-      });
-  }
+    getCountries() {
+        this.http.get(this.countriesUrl).map(res => res.json()).subscribe(data => {
+            this.saveCountries(data);
+            this.countries = this.loadCountries();
+        },
+        err => {
+            this.countries = this.loadCountries();
+        });
+    }
     
-  searchCountries(query) {
-      if (query == "") this.allCountries();
-      else {
-          this.http.get(this.countryQueryUrl + query).map(res => res.json()).subscribe(data => {
-              this.countries = data;
-          }, 
-          err => {
-              this.countries = new Array<Country>();
-          });
-      }
-  }
+    loadCountries() : any {
+        let storedCountriesString = localStorage.getItem("countries");
+        let storedCountries = new Array();
+        
+        if (storedCountriesString === null)
+        {
+            storedCountries = CountryCache.countries;
+            localStorage.setItem("countries", JSON.stringify(storedCountries));
+        }
+        else 
+        {
+            storedCountries = JSON.parse(storedCountriesString);
+        }
+        
+        return storedCountries;
+    }
     
+    saveCountries(countries : any) {
+        localStorage.setItem('countries', JSON.stringify(countries));
+    }
+    
+    searchCountries(query : string) : Array<any> {
+        let result = new Set<any>();
+        
+        for (let country of this.countries) 
+        {
+            if (country.name.toLowerCase().includes(query.toLowerCase())) result.add(country);
+            if (country.capital.toLowerCase().includes(query.toLowerCase())) result.add(country);
+        }
+        
+        return Array.from(result);
+    }
 }

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
+import { CountryDetailPage } from './../country-detail/country-detail';
+
 import { CountryServiceProvider } from '../../providers/country-service/country-service';
 
 /**
@@ -20,20 +22,26 @@ export class CountryListPage {
   searchQuery: string = "";
     
   title: string = "The world";
+  countries : Array<any>;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public countryServiceProvider : CountryServiceProvider) {
+      this.countryServiceProvider.getCountries();
+      this.countries = countryServiceProvider.countries;
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad CountryListPage');
+  }
+    
+  seeDetail(country : any) {
+      this.navCtrl.push(CountryDetailPage, { country : country });
   }
     
   onInput() {
-      this.countryServiceProvider.searchCountries(this.searchQuery);
+      this.countries = this.countryServiceProvider.searchCountries(this.searchQuery);
   }
     
   onCancel() {
-      this.countryServiceProvider.allCountries();
+      this.countries = this.countryServiceProvider.countries;
   }
 
 }
