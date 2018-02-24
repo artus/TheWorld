@@ -1,7 +1,14 @@
 <ion-menu [content]="mycontent">
   <ion-content>
-    <ion-list>
+    
+    <ion-item-divider color="light">General</ion-item-divider>
+    
+    <ion-list (click)="navigateToPage('home')">
+    
+        <ion-item no-lines>Home</ion-item>
+    
     </ion-list>
+    
   </ion-content>
 </ion-menu>
 

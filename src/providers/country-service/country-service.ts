@@ -3,9 +3,8 @@ import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 // Observable
-import { Observable } from 'rxjs/Observable';
-
 import { CountryCache } from './CountryCache';
+import { Country } from './Country';
 
 /*
   Generated class for the CountryServiceProvider provider.
@@ -19,7 +18,7 @@ export class CountryServiceProvider {
   countriesUrl: string = "https://restcountries.eu/rest/v2/all";
   countryQueryUrl: string = "https://restcountries.eu/rest/v2/name/";
     
-  countries: any = new Array();
+  countries: Array<Country> = new Array<Country>();
 
   constructor(public http: Http) {
       this.countries = this.loadCountries();
@@ -35,9 +34,9 @@ export class CountryServiceProvider {
         });
     }
     
-    loadCountries() : any {
+    loadCountries() : Array<Country> {
         let storedCountriesString = localStorage.getItem("countries");
-        let storedCountries = new Array();
+        let storedCountries = new Array<Country>();
         
         if (storedCountriesString === null)
         {
@@ -52,19 +51,33 @@ export class CountryServiceProvider {
         return storedCountries;
     }
     
-    saveCountries(countries : any) {
+    saveCountries(countries : Array<Country>) {
         localStorage.setItem('countries', JSON.stringify(countries));
     }
     
-    searchCountries(query : string) : Array<any> {
-        let result = new Set<any>();
+    searchCountries(query : string) : Array<Country> {
+        let result = new Set<Country>();
         
         for (let country of this.countries) 
         {
             if (country.name.toLowerCase().includes(query.toLowerCase())) result.add(country);
             if (country.capital.toLowerCase().includes(query.toLowerCase())) result.add(country);
+            if (country.alpha3Code.toLowerCase().includes(query.toLowerCase())) result.add(country);
         }
         
         return Array.from(result);
+    }
+    
+    searchCountryByAlpha3(code : string) : Country
+    {
+        for (let country of this.countries)
+        {
+            if (country.alpha3Code.toLowerCase() == code.toLowerCase())
+            {
+                return country;
+            }
+        }
+        
+        return undefined;
     }
 }

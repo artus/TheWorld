@@ -7,12 +7,51 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>CountryDetail</ion-title>
+    <ion-title>{{country.name}}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
+   
+    <ion-card>
+        <img src="{{country.flag}}">
+    </ion-card>
+    
+    <ion-list>
+        
+        <ion-item>
+            <ion-label>Captial</ion-label>
+            <div item-right>{{country.capital}}</div>
+        </ion-item>
+        
+        <ion-item>
+            <ion-label>Region</ion-label>
+            <div item-right>{{country.region}}</div>
+        </ion-item>
+        
+        <ion-item>
+            <ion-label>subregion</ion-label>
+            <div item-right>{{country.subregion}}</div>
+        </ion-item>
+        
+    </ion-list>
+    
+    <ion-item-divider color="light">
+        Borders
+        <div item-end>{{country.borders.length}}</div>
+    </ion-item-divider>
+    
+    <ion-list>
+        <ion-item *ngFor="let border of country.borders" (click)="seeDetail(border)">
+            <ion-thumbnail item-start>
+                <img src="{{countryService.searchCountryByAlpha3(border).flag}}">
+            </ion-thumbnail>
+            <h2>{{countryService.searchCountryByAlpha3(border).name}}</h2>
+            <p>{{countryService.searchCountryByAlpha3(border).capital}}</p>
+        </ion-item>
+    </ion-list>
+    
 
 </ion-content>
