@@ -4,6 +4,8 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { CountryListPage } from '../pages/country-list/country-list';
+import { AboutPage } from '../pages/about/about';
+
 import { CountryServiceProvider } from '../providers/country-service/country-service';
 
 @Component({
@@ -28,6 +30,10 @@ export class MyApp {
       {
           case "home":
               this.nav.popToRoot();
+              break;
+         
+          case "about":
+              this.nav.push(AboutPage);
               break;
       }
       

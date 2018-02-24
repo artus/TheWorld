@@ -17,7 +17,10 @@
    
     <ion-card>
         <img src="{{country.flag}}">
-        <h1 text-wrap padding text-center>{{country.name}}</h1>
+        <div padding text-center>
+        <h1 text-wrap>{{country.name}}</h1>
+        <p text-wrap>{{country.nativeName}}</p>
+        </div>
     </ion-card>
     
     <ion-list>
@@ -46,7 +49,7 @@
     
     <ion-list *ngIf="country.languages.length != 0">
     
-        <ion-item-divider>
+        <ion-item-divider color="light">
             Languages
             <div item-end>{{country.languages.length}}</div>
         </ion-item-divider>
@@ -59,7 +62,7 @@
     
     <ion-list *ngIf="country.currencies.length != 0">
     
-        <ion-item-divider>
+        <ion-item-divider color="light">
             Currencies
             <div item-end>{{country.currencies.length}}</div>
         </ion-item-divider>
@@ -73,10 +76,23 @@
         
     </ion-list>
     
+    <ion-list *ngIf="country.timezones.length != 0">
+    
+        <ion-item-divider color="light">
+            Timezones
+            <div item-end>{{country.timezones.length}}</div>
+        </ion-item-divider>
+        
+        <ion-item *ngFor="let timezone of country.timezones">
+            {{timezone}}
+        </ion-item>
+    
+    </ion-list>
+    
     
     <ion-list *ngIf="country.borders.length != 0">
        
-        <ion-item-divider>
+        <ion-item-divider color="light">
             Borders
             <div item-end>{{country.borders.length}}</div>
         </ion-item-divider>
@@ -93,7 +109,7 @@
     
     <ion-list *ngIf="country.topLevelDomain.length != 0">
        
-        <ion-item-divider>
+        <ion-item-divider color="light">
             Top Level Domains
             <div item-end>{{country.topLevelDomain.length}}</div>
         </ion-item-divider>
@@ -104,7 +120,7 @@
     </ion-list>
     
     <ion-list>
-        <ion-item-divider>Demonym</ion-item-divider>
+        <ion-item-divider color="light">Demonym</ion-item-divider>
         
         <ion-item>
             <h2 text-wrap>

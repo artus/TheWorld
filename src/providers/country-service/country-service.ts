@@ -31,7 +31,7 @@ export class CountryServiceProvider {
             this.saveCountries(data);
             this.countries = this.loadCountries();
         },
-        err => {
+        error => {
             this.log("Error while retrieving countries from api.")
             this.log(error);
             this.countries = this.loadCountries();
@@ -56,7 +56,7 @@ export class CountryServiceProvider {
         else 
         {
             storedCountries = JSON.parse(storedCountriesString);
-            this.lastUpdated = new Date(localStorage.getItem("lastUpdate"));
+            this.lastUpdate = new Date(localStorage.getItem("lastUpdate"));
             this.log("Loaded countries from previously downloaded countries. Update from " + this.lastUpdate);
         }
         

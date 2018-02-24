@@ -9,6 +9,7 @@ import { MyApp } from './app.component';
 
 import { CountryListPage } from '../pages/country-list/country-list';
 import { CountryDetailPage } from '../pages/country-detail/country-detail';
+import { AboutPage } from '../pages/about/about';
 
 import { CountryServiceProvider } from '../providers/country-service/country-service';
 
@@ -16,7 +17,8 @@ import { CountryServiceProvider } from '../providers/country-service/country-ser
   declarations: [
     MyApp,
     CountryListPage,
-    CountryDetailPage
+    CountryDetailPage,
+    AboutPage
   ],
   imports: [
     BrowserModule,
@@ -27,7 +29,8 @@ import { CountryServiceProvider } from '../providers/country-service/country-ser
   entryComponents: [
     MyApp,
     CountryListPage,
-    CountryDetailPage
+    CountryDetailPage,
+    AboutPage
   ],
   providers: [
     StatusBar,
