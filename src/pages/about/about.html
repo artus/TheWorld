@@ -18,17 +18,24 @@
     <h1>The World</h1>
     <p>The World is a mobile app that I created to get accustomed to the ionic framework.</p>
     
-    <p>All data is loaded from the RestCountries API, which is a public API acquired by apilayer.</p>
+    <p>All data is loaded from the REST Countries API, which is a public API acquired by apilayer.</p>
+    
+    <p>Logo created by EbenGraphics / Eben Vranken.</p>
     
     <ion-list>
-        <ion-item>
+        <ion-item (click)="launch('https://www.github.com/artusvranken/TheWorld')">
             <ion-icon name="logo-github"></ion-icon>
             <div item-end>github</div>
         </ion-item>
         
-        <ion-item>
+        <ion-item (click)="launch('https://restcountries.eu/')">
             <ion-icon name="globe"></ion-icon>
-            <div item-end>Restcountries</div>
+            <div item-end>REST Countries</div>
+        </ion-item>
+        
+        <ion-item (click)="launch('https://ionicframework.com/')">
+            <ion-icon name="ionic"></ion-icon>
+            <div item-end>Ionic</div>
         </ion-item>
     </ion-list>
 

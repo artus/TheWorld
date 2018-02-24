@@ -7,6 +7,8 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
 
+import { InAppBrowser } from '@ionic-native/in-app-browser';
+
 import { CountryListPage } from '../pages/country-list/country-list';
 import { CountryDetailPage } from '../pages/country-detail/country-detail';
 import { AboutPage } from '../pages/about/about';
@@ -36,7 +38,8 @@ import { CountryServiceProvider } from '../providers/country-service/country-ser
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    CountryServiceProvider
+    CountryServiceProvider,
+    InAppBrowser
   ]
 })
 export class AppModule {}
