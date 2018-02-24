@@ -17,33 +17,70 @@
    
     <ion-card>
         <img src="{{country.flag}}">
+        <h1 text-wrap padding text-center>{{country.name}}</h1>
     </ion-card>
     
     <ion-list>
         
         <ion-item>
-            <ion-label>Captial</ion-label>
+            <ion-label>Captial:</ion-label>
             <div item-right>{{country.capital}}</div>
         </ion-item>
         
         <ion-item>
-            <ion-label>Region</ion-label>
+            <ion-label>Region:</ion-label>
             <div item-right>{{country.region}}</div>
         </ion-item>
         
         <ion-item>
-            <ion-label>subregion</ion-label>
+            <ion-label>subregion:</ion-label>
             <div item-right>{{country.subregion}}</div>
+        </ion-item>
+        
+        <ion-item>
+            <ion-label>Population:</ion-label>
+            <div item-right>{{country.population}}</div>
         </ion-item>
         
     </ion-list>
     
-    <ion-item-divider color="light">
-        Borders
-        <div item-end>{{country.borders.length}}</div>
-    </ion-item-divider>
+    <ion-list *ngIf="country.languages.length != 0">
     
-    <ion-list>
+        <ion-item-divider>
+            Languages
+            <div item-end>{{country.languages.length}}</div>
+        </ion-item-divider>
+        
+        <ion-item *ngFor="let language of country.languages">
+            {{language.name}}
+        </ion-item>
+    
+    </ion-list>
+    
+    <ion-list *ngIf="country.currencies.length != 0">
+    
+        <ion-item-divider>
+            Currencies
+            <div item-end>{{country.currencies.length}}</div>
+        </ion-item-divider>
+        
+        <ion-item *ngFor="let currency of country.currencies">
+        
+            <ion-label>{{currency.symbol}}</ion-label>
+            <div item-right>{{currency.name}}</div>
+        
+        </ion-item>
+        
+    </ion-list>
+    
+    
+    <ion-list *ngIf="country.borders.length != 0">
+       
+        <ion-item-divider>
+            Borders
+            <div item-end>{{country.borders.length}}</div>
+        </ion-item-divider>
+        
         <ion-item *ngFor="let border of country.borders" (click)="seeDetail(border)">
             <ion-thumbnail item-start>
                 <img src="{{countryService.searchCountryByAlpha3(border).flag}}">
@@ -52,6 +89,28 @@
             <p>{{countryService.searchCountryByAlpha3(border).capital}}</p>
         </ion-item>
     </ion-list>
+   
     
+    <ion-list *ngIf="country.topLevelDomain.length != 0">
+       
+        <ion-item-divider>
+            Top Level Domains
+            <div item-end>{{country.topLevelDomain.length}}</div>
+        </ion-item-divider>
+        
+        <ion-item *ngFor="let tld of country.topLevelDomain">
+            {{tld}}
+        </ion-item>
+    </ion-list>
+    
+    <ion-list>
+        <ion-item-divider>Demonym</ion-item-divider>
+        
+        <ion-item>
+            <h2 text-wrap>
+                An inhabitant of {{country.name}} is called a(n) {{country.demonym}}.
+            </h2>
+        </ion-item>
+    </ion-list>
 
 </ion-content>

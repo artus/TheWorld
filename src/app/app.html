@@ -1,12 +1,31 @@
 <ion-menu [content]="mycontent">
   <ion-content>
     
-    <ion-item-divider color="light">General</ion-item-divider>
+    <ion-item-divider>General</ion-item-divider>
     
-    <ion-list (click)="navigateToPage('home')">
-    
-        <ion-item no-lines>Home</ion-item>
-    
+        <ion-list >
+
+            <ion-item (click)="navigateToPage('home')">
+                <ion-icon name="planet"></ion-icon>
+                <div item-end>Home</div>
+            </ion-item>
+            
+            <ion-item>
+                <ion-icon name="help-circle"></ion-icon>
+                <div item-end>About</div>
+            </ion-item>
+            
+            <ion-item no-lines>
+                <ion-icon name="cash"></ion-icon>
+                <div item-end>Donate</div>
+            </ion-item>
+
+        <ion-item-divider>Info</ion-item-divider>
+
+        <ion-item no-lines text-wrap>
+            Countries last updated on {{countryService.getLastUpdate().toLocaleDateString()}} at {{countryService.getLastUpdate().toLocaleTimeString()}}.
+        </ion-item>
+
     </ion-list>
     
   </ion-content>

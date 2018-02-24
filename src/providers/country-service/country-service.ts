@@ -17,6 +17,7 @@ export class CountryServiceProvider {
     
   countriesUrl: string = "https://restcountries.eu/rest/v2/all";
   countryQueryUrl: string = "https://restcountries.eu/rest/v2/name/";
+  lastUpdate : Date = new Date("2018-02-01T12:00:00.000Z");
     
   countries: Array<Country> = new Array<Country>();
 
@@ -26,12 +27,19 @@ export class CountryServiceProvider {
     
     getCountries() {
         this.http.get(this.countriesUrl).map(res => res.json()).subscribe(data => {
+            this.log("List of countries returned from api, " + data.length + " records.");
             this.saveCountries(data);
             this.countries = this.loadCountries();
         },
         err => {
+            this.log("Error while retrieving countries from api.")
+            this.log(error);
             this.countries = this.loadCountries();
         });
+    }
+    
+    getLastUpdate() : Date {
+        return this.lastUpdate;
     }
     
     loadCountries() : Array<Country> {
@@ -42,10 +50,14 @@ export class CountryServiceProvider {
         {
             storedCountries = CountryCache.countries;
             localStorage.setItem("countries", JSON.stringify(storedCountries));
+            localStorage.setItem("lastUpdate", new Date().toISOString());
+            this.log("Loaded countries from initial cache.");
         }
         else 
         {
             storedCountries = JSON.parse(storedCountriesString);
+            this.lastUpdated = new Date(localStorage.getItem("lastUpdate"));
+            this.log("Loaded countries from previously downloaded countries. Update from " + this.lastUpdate);
         }
         
         return storedCountries;
@@ -53,6 +65,10 @@ export class CountryServiceProvider {
     
     saveCountries(countries : Array<Country>) {
         localStorage.setItem('countries', JSON.stringify(countries));
+        localStorage.setItem('lastUpdate', new Date().toISOString());
+        
+        this.lastUpdate = new Date(localStorage.getItem("lastUpdate"));
+        this.log("Saved countries to device.");
     }
     
     searchCountries(query : string) : Array<Country> {
@@ -79,5 +95,11 @@ export class CountryServiceProvider {
         }
         
         return undefined;
+    }
+    
+    log(message) 
+    {
+        let newDate = new Date().toLocaleTimeString();
+        console.log(newDate + ": " + message);
     }
 }
