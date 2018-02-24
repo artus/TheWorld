@@ -4,7 +4,7 @@ import { CountryListPage } from './country-list';
 
 @NgModule({
   declarations: [
-    CountryListPage,
+    //CountryListPage,
   ],
   imports: [
     IonicPageModule.forChild(CountryListPage),

@@ -4,7 +4,7 @@ import { CountryDetailPage } from './country-detail';
 
 @NgModule({
   declarations: [
-    CountryDetailPage,
+    //CountryDetailPage,
   ],
   imports: [
     IonicPageModule.forChild(CountryDetailPage),
